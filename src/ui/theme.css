@@ -1,0 +1,52 @@
+/*
+ * Design tokens ispirati alla tipografia e alla palette di jethr.com
+ * (font Wix Madefor Display, colori, raggi, spaziature). Nessun asset
+ * (loghi, immagini, icone) è stato copiato: solo valori tipografici e
+ * cromatici, applicati a un layout e componenti originali di questo
+ * prototipo.
+ */
+
+:root {
+  /* Tipografia */
+  --font-testo: "Wix Madefor Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --peso-testo: 400;
+  --peso-testo-enfasi: 500;
+  --peso-titoli: 700;
+
+  --dimensione-h1: 2.75rem;
+  --dimensione-h2: 1.5rem;
+  --dimensione-corpo: 1.125rem;
+  --dimensione-corpo-s: 1rem;
+  --dimensione-label: 0.875rem;
+
+  --altezza-riga-titoli: 1.1;
+  --altezza-riga-corpo: 1.5;
+
+  /* Colori — palette quasi monocromatica di jethr.com */
+  --colore-testo: #11150a;
+  --colore-testo-secondario: #59615f;
+  --colore-testo-su-scuro: #ffffff;
+
+  --colore-sfondo: #ffffff;
+  --colore-sfondo-alternato: #f1f4f1;
+  --colore-sfondo-scuro: #11150a;
+
+  --colore-bordo: #e0e6dc;
+  --colore-bordo-scuro: rgba(255, 255, 255, 0.24);
+
+  --colore-accento-positivo: #294e17;
+  --colore-accento-negativo: #934141;
+
+  /* Raggi — card arrotondate, bottoni e badge a pillola */
+  --raggio-card: 1.25rem;
+  --raggio-bottone: 999px;
+  --raggio-input: 0.75rem;
+
+  /* Spaziature */
+  --spazio-xs: 0.5rem;
+  --spazio-s: 1rem;
+  --spazio-m: 1.5rem;
+  --spazio-l: 2.5rem;
+  --spazio-xl: 4rem;
+}

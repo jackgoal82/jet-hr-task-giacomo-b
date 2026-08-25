@@ -46,7 +46,11 @@ Regola guida: la logica di calcolo in `src/calculator/` deve restare pura (funzi
 
 ## Stack tecnico
 
-Da confermare/scaffoldare alla prima sessione di implementazione. Orientamento: Vite + TypeScript, senza framework UI pesante, per tenere il prototipo semplice, leggibile e facile da mostrare come "codice di cui ho il controllo" (coerente con l'avvertenza del task contro i page-builder). Se questa scelta cambia, aggiornare questa sezione.
+Vite + TypeScript, senza framework UI pesante, per tenere il prototipo semplice, leggibile e facile da mostrare come "codice di cui ho il controllo" (coerente con l'avvertenza del task contro i page-builder).
+
+## Design
+
+I token di tipografia e colore in [src/ui/theme.css](src/ui/theme.css) prendono ispirazione dalla tipografia e dalla palette di jethr.com (font Wix Madefor Display, disponibile su Google Fonts; colori quasi monocromatici nero/bianco/verde-grigio chiaro). Nessun asset (loghi, immagini, icone) è stato copiato dal sito: solo valori tipografici e cromatici, applicati a un layout e componenti originali di questo prototipo.
 
 ## Processo di lavoro atteso
 
