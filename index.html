@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calcolatore RAL → Netto — Jet HR</title>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Calcolatore RAL → Netto</h1>
+        <p class="subtitle">
+          Proiezione di retribuzione netta annuale per un impiegato a tempo indeterminato, residente a
+          Milano, senza altre agevolazioni.
+          <a href="https://github.com/jackgoal82/jet-hr-task-giacomo-b/blob/main/docs/metodologia.md" target="_blank" rel="noopener">
+            Come funziona il calcolo
+          </a>.
+        </p>
+      </header>
+
+      <main>
+        <form id="calculator-form">
+          <label for="ral-input">RAL annua lorda (€)</label>
+          <div class="input-row">
+            <input id="ral-input" name="ral" type="number" min="1" step="1" placeholder="es. 30000" required />
+            <button type="submit">Calcola</button>
+          </div>
+        </form>
+
+        <div id="risultato" hidden></div>
+      </main>
+
+      <footer>
+        <p>
+          Prototipo per l'esercizio Product Builder @ Jet HR. Ipotesi e fonti in
+          <a href="https://github.com/jackgoal82/jet-hr-task-giacomo-b/tree/main/docs" target="_blank" rel="noopener">docs/</a>.
+        </p>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/ui/main.ts"></script>
+  </body>
+</html>

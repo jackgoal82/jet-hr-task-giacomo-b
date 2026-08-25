@@ -12,6 +12,8 @@ Prototipo per l'esercizio "Product Builder @ Jet HR": una pagina web dove l'uten
 
 Il testo esatto e non modificato del task è in [docs/task.md](docs/task.md) — è la fonte di verità per lo scope. In caso di dubbio su cosa è richiesto, si fa riferimento a quel file, non a questo.
 
+La logica di calcolo (dalla RAL al netto) è raccontata in modo discorsivo in [docs/metodologia.md](docs/metodologia.md) — è il punto di partenza per capire l'intero percorso di calcolo prima di guardare codice o dettagli. Le singole voci (IRPEF, INPS, addizionali, cuneo fiscale) con le rispettive fonti sono in [docs/fonti/](docs/fonti/).
+
 ## Cosa NON è questo progetto
 
 - Non deve coprire tutti i casi possibili del payroll italiano. Solo il caso semplice e standard descritto nel task.
