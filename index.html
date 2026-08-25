@@ -32,13 +32,15 @@
             <input id="ral-input" name="ral" type="number" min="1" step="1" placeholder="es. 30000" required />
             <button type="submit">Calcola</button>
           </div>
-
-          <label for="mensilita-input" class="campo-secondario-label">Numero di mensilità</label>
-          <select id="mensilita-input" name="mensilita">
-            <option value="13" selected>13 (con tredicesima)</option>
-            <option value="14">14 (con tredicesima e quattordicesima)</option>
-          </select>
         </form>
+
+        <div class="opzioni">
+          <label for="mensilita-input">Numero di mensilità</label>
+          <select id="mensilita-input" name="mensilita">
+            <option value="13" selected>13</option>
+            <option value="14">14</option>
+          </select>
+        </div>
 
         <div id="risultato" hidden></div>
       </main>

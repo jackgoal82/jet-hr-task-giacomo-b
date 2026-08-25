@@ -80,21 +80,39 @@ label {
   margin-bottom: 0.6rem;
 }
 
-.campo-secondario-label {
-  margin-top: var(--spazio-s);
-  font-size: var(--dimensione-label);
+.opzioni {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 var(--spazio-l);
+}
+
+.opzioni label {
+  margin-bottom: 0;
+  font-weight: var(--peso-testo);
+  font-size: var(--dimensione-corpo-s);
   color: var(--colore-testo-secondario);
 }
 
 select {
-  width: 100%;
-  padding: 0.7rem 1rem;
+  width: auto;
+  min-width: 5rem;
+  /* Spazio a destra per la freccia custom, evita che risulti "incollata" al bordo. */
+  padding: 0.55rem 2.5rem 0.55rem 1rem;
   font-family: inherit;
   font-size: var(--dimensione-corpo-s);
   color: var(--colore-testo);
-  background: var(--colore-sfondo);
+  background-color: var(--colore-sfondo);
   border: 1px solid var(--colore-bordo);
   border-radius: var(--raggio-input);
+  /* Freccia disegnata a mano: il rendering nativo del browser varia troppo tra piattaforme. */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%2359615f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 0.85rem;
 }
 
 select:focus {

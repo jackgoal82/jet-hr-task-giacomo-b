@@ -64,9 +64,7 @@ function renderErrore(messaggio: string): void {
   risultato.hidden = false
 }
 
-form.addEventListener('submit', (evento) => {
-  evento.preventDefault()
-
+function calcolaERenderizza(): void {
   const ral = Number(ralInput.value)
   if (!Number.isFinite(ral) || ral <= 0) {
     renderErrore('Inserisci una RAL valida, maggiore di zero.')
@@ -76,4 +74,18 @@ form.addEventListener('submit', (evento) => {
   const numeroMensilita = Number(mensilitaInput.value) as NumeroMensilita
 
   renderRisultato(calcolaProiezioneNetta(ral, numeroMensilita))
+}
+
+form.addEventListener('submit', (evento) => {
+  evento.preventDefault()
+  calcolaERenderizza()
+})
+
+// La select vive fuori dal form: cambiare mensilità aggiorna subito il
+// risultato già mostrato, senza dover premere di nuovo "Calcola". Se non
+// c'è ancora un risultato in pagina (RAL non ancora inserita), non fa nulla.
+mensilitaInput.addEventListener('change', () => {
+  if (!risultato.hidden) {
+    calcolaERenderizza()
+  }
 })
