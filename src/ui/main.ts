@@ -4,8 +4,12 @@ import type { NumeroMensilita, RisultatoCalcolo } from '../calculator/types'
 
 const form = document.querySelector<HTMLFormElement>('#calculator-form')!
 const ralInput = document.querySelector<HTMLInputElement>('#ral-input')!
-const mensilitaInput = document.querySelector<HTMLSelectElement>('#mensilita-input')!
 const risultato = document.querySelector<HTMLDivElement>('#risultato')!
+
+// Il toggle mensilità vive dentro l'HTML generato in renderRisultato (viene
+// quindi ricreato a ogni render), perciò lo stato selezionato si tiene qui
+// e gli eventi si intercettano per delega su #risultato.
+let numeroMensilitaSelezionata: NumeroMensilita = 13
 
 const formatoEuro = new Intl.NumberFormat('it-IT', {
   style: 'currency',
@@ -18,6 +22,11 @@ const formatoEuro = new Intl.NumberFormat('it-IT', {
   // ampia già presente in lib.es5.d.ts che include i valori stringa validi a runtime.
   useGrouping: 'always' as unknown as boolean,
 })
+
+function pulsanteMensilita(valore: NumeroMensilita, selezionata: NumeroMensilita): string {
+  const isSelezionata = valore === selezionata
+  return `<button type="button" class="mensilita-opzione${isSelezionata ? ' is-selezionata' : ''}" data-mensilita="${valore}" aria-pressed="${isSelezionata}">${valore} mensilità</button>`
+}
 
 function renderRisultato(r: RisultatoCalcolo): void {
   const netta = r.dettaglio
@@ -34,11 +43,17 @@ function renderRisultato(r: RisultatoCalcolo): void {
       </div>
     </div>
 
-    <p class="risultato-nota">
-      Con ${r.numeroMensilita} mensilità: una mensilità ordinaria netta è di circa
-      <strong>${formatoEuro.format(r.nettoMensilitaOrdinaria)}</strong>, il mese con la mensilità aggiuntiva
-      (es. dicembre) è di circa <strong>${formatoEuro.format(r.nettoMeseConMensilitaAggiuntiva)}</strong>.
-    </p>
+    <div class="mensilita-box">
+      <div class="mensilita-toggle" role="group" aria-label="Numero di mensilità">
+        ${pulsanteMensilita(13, r.numeroMensilita)}
+        ${pulsanteMensilita(14, r.numeroMensilita)}
+      </div>
+      <p class="risultato-nota">
+        Con ${r.numeroMensilita} mensilità: una mensilità ordinaria netta è
+        <strong>${formatoEuro.format(r.nettoMensilitaOrdinaria)}</strong>, il mese con la mensilità aggiuntiva
+        (es. dicembre) è <strong>${formatoEuro.format(r.nettoMeseConMensilitaAggiuntiva)}</strong>.
+      </p>
+    </div>
 
     <table class="dettaglio-tabella">
       <caption>Dettaglio trattenute annue (RAL: ${formatoEuro.format(r.ral)})</caption>
@@ -71,9 +86,7 @@ function calcolaERenderizza(): void {
     return
   }
 
-  const numeroMensilita = Number(mensilitaInput.value) as NumeroMensilita
-
-  renderRisultato(calcolaProiezioneNetta(ral, numeroMensilita))
+  renderRisultato(calcolaProiezioneNetta(ral, numeroMensilitaSelezionata))
 }
 
 form.addEventListener('submit', (evento) => {
@@ -81,11 +94,15 @@ form.addEventListener('submit', (evento) => {
   calcolaERenderizza()
 })
 
-// La select vive fuori dal form: cambiare mensilità aggiorna subito il
-// risultato già mostrato, senza dover premere di nuovo "Calcola". Se non
-// c'è ancora un risultato in pagina (RAL non ancora inserita), non fa nulla.
-mensilitaInput.addEventListener('change', () => {
-  if (!risultato.hidden) {
-    calcolaERenderizza()
-  }
+// Il toggle mensilità compare solo dopo il primo calcolo (è dentro #risultato),
+// quindi gli eventi si ascoltano per delega sul contenitore, stabile nel DOM.
+risultato.addEventListener('click', (evento) => {
+  const bottone = (evento.target as HTMLElement).closest<HTMLButtonElement>('.mensilita-opzione')
+  if (!bottone) return
+
+  const valore = Number(bottone.dataset.mensilita) as NumeroMensilita
+  if (valore === numeroMensilitaSelezionata) return
+
+  numeroMensilitaSelezionata = valore
+  calcolaERenderizza()
 })
