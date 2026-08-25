@@ -10,6 +10,12 @@ const formatoEuro = new Intl.NumberFormat('it-IT', {
   style: 'currency',
   currency: 'EUR',
   maximumFractionDigits: 0,
+  // Senza questa opzione l'ICU di alcuni runtime omette il separatore delle
+  // migliaia sotto i 10.000 (es. "3860 €" invece di "3.860 €"). Il cast
+  // aggira un bug delle definizioni di tipo di TypeScript: lib.es2020.bigint.d.ts
+  // ridichiara useGrouping come solo booleano, in conflitto con l'unione più
+  // ampia già presente in lib.es5.d.ts che include i valori stringa validi a runtime.
+  useGrouping: 'always' as unknown as boolean,
 })
 
 function renderRisultato(r: RisultatoCalcolo): void {
@@ -33,8 +39,8 @@ function renderRisultato(r: RisultatoCalcolo): void {
         <tr><td>Contributi INPS (9,19%)</td><td>${formatoEuro.format(netta.contributiInps)}</td></tr>
         <tr><td>Reddito imponibile IRPEF</td><td>${formatoEuro.format(r.redditoImponibile)}</td></tr>
         <tr><td>IRPEF lorda</td><td>${formatoEuro.format(netta.irpefLorda)}</td></tr>
-        <tr><td>Detrazioni lavoro dipendente</td><td>&minus; ${formatoEuro.format(netta.detrazioniLavoroDipendente)}</td></tr>
-        <tr><td>Ulteriore detrazione cuneo fiscale</td><td>&minus; ${formatoEuro.format(netta.cuneoFiscaleUlterioreDetrazione)}</td></tr>
+        <tr><td>Detrazioni lavoro dipendente</td><td>- ${formatoEuro.format(netta.detrazioniLavoroDipendente)}</td></tr>
+        <tr><td>Ulteriore detrazione cuneo fiscale</td><td>- ${formatoEuro.format(netta.cuneoFiscaleUlterioreDetrazione)}</td></tr>
         <tr class="riga-subtotale"><td>IRPEF netta</td><td>${formatoEuro.format(netta.irpefNetta)}</td></tr>
         <tr><td>Addizionale regionale (Lombardia)</td><td>${formatoEuro.format(netta.addizionaleRegionale)}</td></tr>
         <tr><td>Addizionale comunale (Milano)</td><td>${formatoEuro.format(netta.addizionaleComunale)}</td></tr>

@@ -49,8 +49,15 @@ header .subtitle {
 }
 
 header .subtitle a {
+  color: var(--colore-testo-secondario);
+  font-weight: var(--peso-testo);
+  text-decoration-color: var(--colore-bordo);
+  text-underline-offset: 2px;
+}
+
+header .subtitle a:hover {
   color: var(--colore-testo);
-  font-weight: var(--peso-testo-enfasi);
+  text-decoration-color: currentColor;
 }
 
 form {
