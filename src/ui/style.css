@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Evita l'overflow orizzontale della pagina se un discendente eccede la viewport. */
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--colore-sfondo);
@@ -34,7 +39,8 @@ body {
 }
 
 header h1 {
-  font-size: var(--dimensione-h1);
+  /* Fluida tra ~28px e la dimensione desktop, per non forzare wrap scomodi su schermi stretti. */
+  font-size: clamp(1.75rem, 5vw + 1rem, var(--dimensione-h1));
   font-weight: var(--peso-titoli);
   line-height: var(--altezza-riga-titoli);
   letter-spacing: -0.01em;
@@ -76,11 +82,15 @@ label {
 
 .input-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
 input[type="number"] {
-  flex: 1;
+  flex: 1 1 12rem;
+  /* Senza min-width:0 un elemento flex non si restringe oltre il proprio
+     contenuto intrinseco, ed è questo che causava l'overflow su mobile. */
+  min-width: 0;
   padding: 0.7rem 1rem;
   font-family: inherit;
   font-size: var(--dimensione-corpo-s);
@@ -95,6 +105,7 @@ input[type="number"]:focus {
 }
 
 button {
+  flex: 1 1 auto;
   padding: 0.7rem 1.6rem;
   font-family: inherit;
   font-size: var(--dimensione-corpo-s);
