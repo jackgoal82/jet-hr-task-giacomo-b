@@ -43,6 +43,9 @@
   --raggio-bottone: 999px;
   --raggio-input: 0.75rem;
 
+  /* Ombra soffusa per le card, coerente con l'aspetto "sollevato" di jethr.com */
+  --ombra-card: 0 12px 28px rgba(17, 21, 10, 0.06), 0 2px 6px rgba(17, 21, 10, 0.04);
+
   /* Spaziature */
   --spazio-xs: 0.5rem;
   --spazio-s: 1rem;
