@@ -3,13 +3,17 @@ import { calcolaIrpefLorda } from './irpef'
 import { calcolaDetrazioneLavoroDipendente } from './detrazioniLavoroDipendente'
 import { calcolaSommaNonImponibileCuneoFiscale, calcolaUlterioreDetrazioneCuneoFiscale } from './cuneoFiscale'
 import { calcolaAddizionaleRegionale, calcolaAddizionaleComunale } from './addizionali'
-import type { RisultatoCalcolo } from './types'
+import type { NumeroMensilita, RisultatoCalcolo } from './types'
 
 /**
  * Proiezione RAL -> netto per il caso standard descritto in docs/metodologia.md:
  * impiegato a tempo indeterminato, residente a Milano, nessun altro reddito o agevolazione.
+ *
+ * Il numero di mensilità (13 o 14) non incide sulle imposte: IRPEF, INPS e
+ * addizionali si calcolano sempre sul reddito annuo. Cambia solo come il
+ * netto annuale viene suddiviso tra le mensilità in busta paga.
  */
-export function calcolaProiezioneNetta(ral: number): RisultatoCalcolo {
+export function calcolaProiezioneNetta(ral: number, numeroMensilita: NumeroMensilita = 13): RisultatoCalcolo {
   const contributiInps = calcolaContributiInps(ral)
   const redditoImponibile = ral - contributiInps
 
@@ -26,9 +30,11 @@ export function calcolaProiezioneNetta(ral: number): RisultatoCalcolo {
   const totaleTrattenute = contributiInps + irpefNetta + addizionaleRegionale + addizionaleComunale
 
   const nettoAnnuale = ral - totaleTrattenute + cuneoFiscaleSommaNonImponibile
+  const nettoMensilitaOrdinaria = nettoAnnuale / numeroMensilita
 
   return {
     ral,
+    numeroMensilita,
     redditoImponibile,
     dettaglio: {
       contributiInps,
@@ -43,5 +49,7 @@ export function calcolaProiezioneNetta(ral: number): RisultatoCalcolo {
     totaleTrattenute,
     nettoAnnuale,
     nettoMensileMedio: nettoAnnuale / 12,
+    nettoMensilitaOrdinaria,
+    nettoMeseConMensilitaAggiuntiva: nettoMensilitaOrdinaria * 2,
   }
 }

@@ -80,6 +80,28 @@ label {
   margin-bottom: 0.6rem;
 }
 
+.campo-secondario-label {
+  margin-top: var(--spazio-s);
+  font-size: var(--dimensione-label);
+  color: var(--colore-testo-secondario);
+}
+
+select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-family: inherit;
+  font-size: var(--dimensione-corpo-s);
+  color: var(--colore-testo);
+  background: var(--colore-sfondo);
+  border: 1px solid var(--colore-bordo);
+  border-radius: var(--raggio-input);
+}
+
+select:focus {
+  outline: 2px solid var(--colore-testo);
+  outline-offset: 1px;
+}
+
 .input-row {
   display: flex;
   flex-wrap: wrap;
@@ -148,6 +170,18 @@ button:hover {
   font-size: 1.9rem;
   font-weight: var(--peso-titoli);
   color: var(--colore-accento-positivo);
+}
+
+.risultato-nota {
+  color: var(--colore-testo-secondario);
+  font-size: var(--dimensione-label);
+  line-height: var(--altezza-riga-corpo);
+  margin: 0 0 var(--spazio-s);
+}
+
+.risultato-nota strong {
+  color: var(--colore-testo);
+  font-weight: var(--peso-testo-enfasi);
 }
 
 .dettaglio-tabella {

@@ -1,9 +1,10 @@
 import './style.css'
 import { calcolaProiezioneNetta } from '../calculator'
-import type { RisultatoCalcolo } from '../calculator/types'
+import type { NumeroMensilita, RisultatoCalcolo } from '../calculator/types'
 
 const form = document.querySelector<HTMLFormElement>('#calculator-form')!
 const ralInput = document.querySelector<HTMLInputElement>('#ral-input')!
+const mensilitaInput = document.querySelector<HTMLSelectElement>('#mensilita-input')!
 const risultato = document.querySelector<HTMLDivElement>('#risultato')!
 
 const formatoEuro = new Intl.NumberFormat('it-IT', {
@@ -32,6 +33,12 @@ function renderRisultato(r: RisultatoCalcolo): void {
         <span class="risultato-valore">${formatoEuro.format(r.nettoMensileMedio)}</span>
       </div>
     </div>
+
+    <p class="risultato-nota">
+      Con ${r.numeroMensilita} mensilità: una mensilità ordinaria netta è di circa
+      <strong>${formatoEuro.format(r.nettoMensilitaOrdinaria)}</strong>, il mese con la mensilità aggiuntiva
+      (es. dicembre) è di circa <strong>${formatoEuro.format(r.nettoMeseConMensilitaAggiuntiva)}</strong>.
+    </p>
 
     <table class="dettaglio-tabella">
       <caption>Dettaglio trattenute annue (RAL: ${formatoEuro.format(r.ral)})</caption>
@@ -66,5 +73,7 @@ form.addEventListener('submit', (evento) => {
     return
   }
 
-  renderRisultato(calcolaProiezioneNetta(ral))
+  const numeroMensilita = Number(mensilitaInput.value) as NumeroMensilita
+
+  renderRisultato(calcolaProiezioneNetta(ral, numeroMensilita))
 })

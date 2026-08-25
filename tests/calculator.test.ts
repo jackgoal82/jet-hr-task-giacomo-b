@@ -39,4 +39,16 @@ describe('calcolaProiezioneNetta', () => {
       expect(r.nettoAnnuale).toBeLessThan(ral)
     }
   })
+
+  it('il numero di mensilità non cambia il netto annuale, solo come viene suddiviso', () => {
+    const con13 = calcolaProiezioneNetta(35_000, 13)
+    const con14 = calcolaProiezioneNetta(35_000, 14)
+
+    expect(con14.nettoAnnuale).toBeCloseTo(con13.nettoAnnuale, 6)
+    expect(con13.nettoMensilitaOrdinaria).toBeCloseTo(con13.nettoAnnuale / 13, 6)
+    expect(con14.nettoMensilitaOrdinaria).toBeCloseTo(con14.nettoAnnuale / 14, 6)
+    expect(con13.nettoMeseConMensilitaAggiuntiva).toBeCloseTo(con13.nettoMensilitaOrdinaria * 2, 6)
+    // Default a 13 mensilità se non specificato.
+    expect(calcolaProiezioneNetta(35_000).nettoMensilitaOrdinaria).toBeCloseTo(con13.nettoMensilitaOrdinaria, 6)
+  })
 })
